@@ -1,0 +1,83 @@
+{
+  "root": "packages/chat",
+  "sourceRoot": "packages/chat/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/packages/chat",
+        "index": "packages/chat/src/index.html",
+        "baseHref": "/",
+        "main": "packages/chat/src/main.tsx",
+        "polyfills": "packages/chat/src/polyfills.ts",
+        "tsConfig": "packages/chat/tsconfig.app.json",
+        "assets": [
+          "packages/chat/src/favicon.ico",
+          "packages/chat/src/assets"
+        ],
+        "styles": [
+          "packages/chat/src/styles.css"
+        ],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "packages/chat/src/environments/environment.ts",
+              "with": "packages/chat/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "chat:build",
+        "hmr": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "chat:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "packages/chat/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/packages/chat"
+      ],
+      "options": {
+        "jestConfig": "packages/chat/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
